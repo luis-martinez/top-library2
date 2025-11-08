@@ -16,7 +16,31 @@ function addBookLibrary(title, author, pages) {
   myLibrary.push(book);
 }
 
+function displayLibrary() {
+  for (let i = 0; i < myLibrary.length; i++) {
+    // console.log(myLibrary[i].title);
+    displayBook(myLibrary[i]);
+  }
+}
+
+function displayBook(book) {
+  const container = document.querySelector("#container");
+  const tr = document.createElement("tr");
+
+  tr.innerHTML = `<td>${book.id}</td>
+                  <td>${book.title}</td>
+                  <td>${book.author}</td>
+                  <td>${book.pages}</td>`;
+
+  container.appendChild(tr);
+}
+
+// MAIN
+
 let hobbit = addBookLibrary("The Hobbit", "JRR Tolkien", 300);
 let rings = addBookLibrary("The Lord of the Rings", "JRR Tolkien", 350);
 
-console.log(myLibrary);
+// console.log(myLibrary);
+// console.table(myLibrary);
+
+displayLibrary();
