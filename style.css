@@ -29,3 +29,9 @@ tr:nth-child(even) td {
 tr:nth-child(odd) td {
   background-color: rgb(245,245,245);
 }
+
+/* New Book Dialog */
+::backdrop {
+  background-color: black;
+  opacity: 0.75;
+}

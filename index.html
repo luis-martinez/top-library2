@@ -1,27 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
-  <title>Library</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+    <title>Library</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Pages</th>
+          <th>Read</th>
+        </tr>
+      </thead>
+      <tbody id="container"></tbody>
+    </table>
 
-</head>
-<body>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Pages</th>
-        <th>Read</th>
-      </tr>
-    </thead>
-    <tbody id="container">
-
-    </tbody>
-  </table>
-</body>
+    <dialog>
+      <button autofocus>Close</button>
+      <form action="" method="">
+        <div>
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" />
+        </div>
+        <div>
+          <label for="author">Author</label>
+          <input type="text" name="author" id="author" />
+        </div>
+        <div>
+          <label for="pages">Pages</label>
+          <input type="number" name="pages" id="pages" />
+        </div>
+        <h4>Read</h4>
+        <div>
+          <label for="read_yes">Yes</label>
+          <input type="radio" name="read" id="read_yes" value="Yes" />
+        </div>
+        <div>
+          <label for="read_no">No</label>
+          <input type="radio" name="read" id="read_no" value="No" checked/>
+        </div>
+        <button type="submit" id="add-book">Add Book</button>
+      </form>
+    </dialog>
+    <button type="button">New Book</button>
+  </body>
 </html>
