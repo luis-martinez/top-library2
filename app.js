@@ -1,6 +1,8 @@
 const myLibrary = [];
 
-function Book(id, title, author, pages, read) {
+function Book(title, author, pages, read) {
+  let id = crypto.randomUUID();
+
   this.id = id;
   this.title = title;
   this.author = author;
@@ -10,20 +12,12 @@ function Book(id, title, author, pages, read) {
 
 
 function addBookLibrary(title, author, pages, read) {
-  let id = crypto.randomUUID();
-
-  let book = new Book(id, title, author, pages, read);
-
+  // Creates a new book
+  let book = new Book(title, author, pages, read);
+  // Store the book
   myLibrary.push(book);
-  return book;
-}
-
-
-function displayLibrary() {
-  for (let i = 0; i < myLibrary.length; i++) {
-    // console.log(myLibrary[i].title);
-    displayBook(myLibrary[i]);
-  }
+  // Display book in the table
+  displayBook(book);
 }
 
 
@@ -41,16 +35,12 @@ function displayBook(book) {
 }
 
 
-
 // MAIN
 
-let hobbit = addBookLibrary("The Hobbit", "JRR Tolkien", 300, true);
-let rings = addBookLibrary("The Lord of the Rings", "JRR Tolkien", 350, false);
+addBookLibrary("The Hobbit", "JRR Tolkien", 300, "yes");
+addBookLibrary("The Lord of the Rings", "JRR Tolkien", 350, "no");
 
-// console.log(myLibrary);
 console.table(myLibrary);
-
-displayLibrary();
 
 
 // NEW BOOK
@@ -69,14 +59,13 @@ closeButton.addEventListener("click", () => {
   dialog.close();
 });
 
+
 // NEW BOOK SUBMIT
 
-const submit = document.querySelector("#add-book");
+const submit = document.querySelector("#newBook");
 
-submit.addEventListener("click", () => {
-  console.log("submit");
+submit.addEventListener("click", (event) => {
   event.preventDefault();
-  // e.preventDefault();
 
   // Get data from the dialog, new book
   const title = document.querySelector("#title");
@@ -84,20 +73,10 @@ submit.addEventListener("click", () => {
   const pages = document.querySelector("#pages");
   const read = document.querySelector('input[name="read"]:checked');
 
+  addBookLibrary(title.value, author.value, Number(pages.value), read.value);
 
-  console.log(title.value);
-  console.log(author.value);
-  console.log(pages.value);
-  console.log(read.value);
-
-
-  const newBook = addBookLibrary(title.value, author.value, pages.value, read.value);
-
-  // displayLibrary();
-  displayBook(newBook);
-console.table(myLibrary);
+  console.table(myLibrary);
 
   dialog.close();
   form.reset();
 });
-
