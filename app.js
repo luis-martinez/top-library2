@@ -21,9 +21,31 @@ function addBookLibrary(title, author, pages, read) {
 }
 
 
+function deleteBookLibrary(bookId) {
+  for (let index = 0; index < myLibrary.length; index++) {
+    if (myLibrary[index].id === bookId) {
+      // Delete from the Array
+      myLibrary.splice(index, 1);
+      console.table(myLibrary);
+      // Delete from the HTML
+      const table = document.querySelector("#container");
+      table.deleteRow(index);
+    } 
+  }
+}
+
+
 function displayBook(book) {
+  // Select table
   const container = document.querySelector("#container");
+  // Create table row
   const tr = document.createElement("tr");
+
+  // Create "delete button"
+  const button = document.createElement("button");
+  button.textContent = "Delete";
+  button.setAttribute("data-id", book.id);
+
 
   tr.innerHTML = `<td>${book.id}</td>
                   <td>${book.title}</td>
@@ -32,13 +54,21 @@ function displayBook(book) {
                   <td>${book.read}</td>`;
 
   container.appendChild(tr);
+  tr.appendChild(button);
+
+  button.addEventListener("click", () => {
+    console.log(button.dataset.id);
+    deleteBookLibrary(button.dataset.id);
+  });
+
+
 }
 
 
 // MAIN
 
-addBookLibrary("The Hobbit", "JRR Tolkien", 300, "yes");
-addBookLibrary("The Lord of the Rings", "JRR Tolkien", 350, "no");
+addBookLibrary("The Hobbit", "JRR Tolkien", 300, "Yes");
+addBookLibrary("The Lord of the Rings", "JRR Tolkien", 350, "No");
 
 console.table(myLibrary);
 
