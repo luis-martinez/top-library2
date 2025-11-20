@@ -11,6 +11,15 @@ function Book(title, author, pages, read) {
 }
 
 
+Book.prototype.changeReadStatus = function() {
+  // Update in the array
+  this.read = this.read ? false : true;
+  console.table(myLibrary);
+  // Update in the HTML table
+  document.getElementById(`${this.id}`).innerHTML = this.read;
+};
+
+
 function addBookLibrary(title, author, pages, read) {
   // Creates a new book
   let book = new Book(title, author, pages, read);
@@ -41,34 +50,41 @@ function displayBook(book) {
   // Create table row
   const tr = document.createElement("tr");
 
-  // Create "delete button"
-  const button = document.createElement("button");
-  button.textContent = "Delete";
-  button.setAttribute("data-id", book.id);
+  // Create "Delete" button
+  const buttonDelete = document.createElement("button");
+  buttonDelete.textContent = "Delete";
+  buttonDelete.setAttribute("data-id", book.id);
 
+  // Create "Change Status" button
+  const buttonStatus = document.createElement("button");
+  buttonStatus.textContent = "Change Status";
 
   tr.innerHTML = `<td>${book.id}</td>
                   <td>${book.title}</td>
                   <td>${book.author}</td>
                   <td>${book.pages}</td>
-                  <td>${book.read}</td>`;
+                  <td id="${book.id}">${book.read}</td>`;
 
   container.appendChild(tr);
-  tr.appendChild(button);
+  tr.appendChild(buttonDelete);
+  tr.appendChild(buttonStatus);
 
-  button.addEventListener("click", () => {
-    console.log(button.dataset.id);
-    deleteBookLibrary(button.dataset.id);
+  buttonDelete.addEventListener("click", () => {
+    console.log(buttonDelete.dataset.id);
+    deleteBookLibrary(buttonDelete.dataset.id);
   });
 
+  buttonStatus.addEventListener("click", () => {
+    book.changeReadStatus();
+  });
 
 }
 
 
 // MAIN
 
-addBookLibrary("The Hobbit", "JRR Tolkien", 300, "Yes");
-addBookLibrary("The Lord of the Rings", "JRR Tolkien", 350, "No");
+addBookLibrary("The Hobbit", "JRR Tolkien", 300, true);
+addBookLibrary("The Lord of the Rings", "JRR Tolkien", 350, false);
 
 console.table(myLibrary);
 
@@ -103,7 +119,7 @@ submit.addEventListener("click", (event) => {
   const pages = document.querySelector("#pages");
   const read = document.querySelector('input[name="read"]:checked');
 
-  addBookLibrary(title.value, author.value, Number(pages.value), read.value);
+  addBookLibrary(title.value, author.value, Number(pages.value), Boolean(read.value));
 
   console.table(myLibrary);
 
