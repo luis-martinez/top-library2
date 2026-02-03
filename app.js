@@ -59,14 +59,18 @@ function displayBook(book) {
   const buttonStatus = document.createElement("button");
   buttonStatus.textContent = "Change Status";
 
+  // Add data to the table row
   tr.innerHTML = `<td>${book.id}</td>
                   <td>${book.title}</td>
                   <td>${book.author}</td>
                   <td>${book.pages}</td>
                   <td id="${book.id}">${book.read}</td>`;
 
+  // Add table row to the table
   container.appendChild(tr);
+  // Add "Delete" button to the table
   tr.appendChild(buttonDelete);
+  // Add "Change Status" to the table
   tr.appendChild(buttonStatus);
 
   buttonDelete.addEventListener("click", () => {
@@ -126,3 +130,4 @@ submit.addEventListener("click", (event) => {
   dialog.close();
   form.reset();
 });
+
