@@ -3,7 +3,6 @@
 class Library {
   constructor() {
     this.myLibrary = [];
-    
   }
   
   addBookLibrary(book){
@@ -29,7 +28,7 @@ class Library {
   displayBook(book) {
     // Select table
     const container = document.querySelector("#container");
-    // Select table row
+    // Create table row
     const tr = document.createElement("tr");
 
     // Create "Delete" button
@@ -41,14 +40,18 @@ class Library {
     const buttonStatus = document.createElement("button");
     buttonStatus.textContent = "Change Status";
 
-     tr.innerHTML = `<td>${book.id}</td>
+    // Add data to the table row
+    tr.innerHTML = `<td>${book.id}</td>
                   <td>${book.title}</td>
                   <td>${book.author}</td>
                   <td>${book.pages}</td>
                   <td id="${book.id}">${book.read}</td>`;
 
+    // Add table row to the table
     container.appendChild(tr);
+    // Add "Delete" button to the table
     tr.appendChild(buttonDelete);
+    // Add "Change Status" button to the table
     tr.appendChild(buttonStatus);
 
     buttonDelete.addEventListener("click", () => {
@@ -136,3 +139,4 @@ submit.addEventListener("click", (event) => {
   dialog.close();
   form.reset();
 });
+
