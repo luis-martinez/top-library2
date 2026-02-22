@@ -113,9 +113,36 @@ showButton.addEventListener("click", () => {
 });
 
 closeButton.addEventListener("click", () => {
+  form.reset();
   dialog.close();
 });
 
+
+// FORM VALIDATIONS
+
+// FORM VALIDATION - AUTHOR
+
+const author = document.querySelector("#author");
+const authorError = document.querySelector("#author + span.error");
+
+author.addEventListener("input", (event) => {
+  if (author.validity.valueMissing) {
+      // author.setCustomValidity("The Author name must be filled.");
+      showError();
+    } else {
+      // author.setCustomValidity("");
+      authorError.innerHTML = "";
+      authorError.className = "error";
+  }
+});
+
+
+function showError() {
+  authorError.textContent = "[The Author name must be filled]";
+
+  // Set the styling appropriately
+  authorError.className = "error active";
+}
 
 
 // NEW BOOK SUBMIT
@@ -125,18 +152,22 @@ const submit = document.querySelector("#newBook");
 submit.addEventListener("click", (event) => {
   event.preventDefault();
 
-  // Get data from the dialog, new book
-  const title = document.querySelector("#title");
-  const author = document.querySelector("#author");
-  const pages = document.querySelector("#pages");
-  const read = document.querySelector('input[name="read"]:checked');
+  if (!author.validity.valid) {
+    showError();
+  } else {
+    // Get data from the dialog, new book
+    const title = document.querySelector("#title");
+    const author = document.querySelector("#author");
+    const pages = document.querySelector("#pages");
+    const read = document.querySelector('input[name="read"]:checked');
 
-  const book = new Book(title.value, author.value, Number(pages.value), Boolean(read.value));
-  library.addBookLibrary(book);
+    const book = new Book(title.value, author.value, Number(pages.value), Boolean(read.value));
+    library.addBookLibrary(book);
 
-  console.table(library.myLibrary);
+    console.table(library.myLibrary);
 
-  dialog.close();
+    dialog.close();
+  }
+
   form.reset();
 });
-
